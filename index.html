@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Live Subscribers</title>
+<style>
+body{
+margin:0;
+background:transparent;
+font-family:Arial,sans-serif;
+}
+#subs{
+font-size:80px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px 5px black;
+}
+</style>
+</head>
+<body>
+
+<div id="subs">Loading...</div>
+
+<script>
+const API_KEY="AIzaSyBF4PmkQBcluivO-Nr2uXA4L80XAHWyxAk";
+const CHANNEL_ID="UC01GtO0RvL1OrRAzV7SgLRg";
+
+async function loadSubs(){
+const res=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+const data=await res.json();
+document.getElementById("subs").innerHTML=data.items[0].statistics.subscriberCount;
+}
+loadSubs();
+setInterval(loadSubs,10000);
+</script>
+
+</body>
+</html>
